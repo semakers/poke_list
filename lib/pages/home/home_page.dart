@@ -22,12 +22,19 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Intercambio Pokémon'),
         actions: [
-          TextButton(
-            onPressed: () {
-              const MyTeamDialog().show(context);
-            },
-            child: const Text(
-              'Mi equipo',
+          Padding(
+            padding: const EdgeInsets.only(
+              right: 16.0,
+            ),
+            child: TextButton(
+              onPressed: () {
+                const MyTeamDialog().show(context);
+              },
+              child: Obx(
+                () => Text(
+                  'Mi equipo: ${pokemonController.myTeamList.length}',
+                ),
+              ),
             ),
           ),
         ],

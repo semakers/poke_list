@@ -28,6 +28,7 @@ class MyTeamDialog extends StatelessWidget {
                     ),
                     child: Text(
                       'No tienes Pokémons en tu equipo',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
