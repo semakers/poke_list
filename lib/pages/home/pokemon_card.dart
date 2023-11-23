@@ -70,7 +70,7 @@ class _PokemonCard extends StatelessWidget {
                         children: pokemon.details.types
                             .map((e) => Padding(
                                   padding: const EdgeInsets.only(
-                                    left: 8.0,
+                                    right: 8.0,
                                   ),
                                   child: Container(
                                     padding: const EdgeInsets.symmetric(
