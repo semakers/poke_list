@@ -46,4 +46,12 @@ class PokemonCache {
       data,
     );
   }
+
+  static final PokemonCache _pokemonCache = PokemonCache._internal();
+
+  factory PokemonCache() {
+    return _pokemonCache;
+  }
+
+  PokemonCache._internal();
 }

@@ -22,4 +22,12 @@ class PokemonServices {
       response.data,
     );
   }
+
+  static final PokemonServices _pokemonServices = PokemonServices._internal();
+
+  factory PokemonServices() {
+    return _pokemonServices;
+  }
+
+  PokemonServices._internal();
 }

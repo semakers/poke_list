@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:poke_list/models/all.dart';
-import 'package:poke_list/pages/home/home_controller.dart';
+import 'package:poke_list/controller/pokemon_controller.dart';
+import 'package:poke_list/pages/my_team/my_team_dialog.dart';
+import 'package:poke_list/utils/pokemon_utils.dart';
 
 part 'pokemon_card.dart';
 
@@ -10,7 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeController = Get.put(HomeController());
+    final pokemonController = Get.put(PokemonController());
     final scrollController = ScrollController();
     initEndLess(
       scrollController: scrollController,
@@ -19,6 +21,16 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Intercambio Pokémon'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              const MyTeamDialog().show(context);
+            },
+            child: const Text(
+              'Mi equipo',
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -43,14 +55,14 @@ class HomePage extends StatelessWidget {
               () {
                 return ListView.builder(
                   controller: scrollController,
-                  itemCount: homeController.pokemonsList.length + 1,
+                  itemCount: pokemonController.pokemonsList.length + 1,
                   itemBuilder: (context, index) {
-                    return index == homeController.pokemonsList.length
+                    return index == pokemonController.pokemonsList.length
                         ? const Center(
                             child: CircularProgressIndicator(),
                           )
                         : _PokemonCard(
-                            pokemon: homeController.pokemonsList[index],
+                            pokemon: pokemonController.pokemonsList[index],
                           );
                   },
                 );
@@ -65,16 +77,16 @@ class HomePage extends StatelessWidget {
   void initEndLess({
     required ScrollController scrollController,
   }) async {
-    final homeController = Get.find<HomeController>();
+    final pokemonController = Get.find<PokemonController>();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       while (scrollController.position.maxScrollExtent == 0) {
-        await homeController.loadMore();
+        await pokemonController.loadMore();
       }
       scrollController.addListener(() async {
         if (scrollController.position.atEdge) {
           bool isBottom = scrollController.position.pixels != 0;
           if (isBottom) {
-            await homeController.loadMore();
+            await pokemonController.loadMore();
           }
         }
       });

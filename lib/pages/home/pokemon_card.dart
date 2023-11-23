@@ -10,20 +10,9 @@ class _PokemonCard extends StatelessWidget {
 
   final PokemonTeamElementModel pokemon;
 
-  Color stringToColor(String inputString) {
-    int sum = 0;
-    for (int i = 0; i < inputString.length; i++) {
-      sum += inputString.codeUnitAt(i);
-    }
-
-    int hexColorValue = sum % 0xFFFFFF;
-
-    Color color = Color(hexColorValue | 0xFF000000);
-    return color.withAlpha(180);
-  }
-
   @override
   Widget build(BuildContext context) {
+    final pokemonController = Get.find<PokemonController>();
     return Padding(
       padding: const EdgeInsets.only(
         right: 16.0,
@@ -39,8 +28,13 @@ class _PokemonCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Image.network(
-                    pokemon.details.sprites.frontDefault,
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Image.network(
+                      pokemon.details.sprites.frontDefault,
+                    ),
                   ),
                   const Spacer(),
                   Column(
@@ -84,7 +78,7 @@ class _PokemonCard extends StatelessWidget {
                                       vertical: 4.0,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: stringToColor(
+                                      color: PokemonUtils().stringToColor(
                                         e.type.name,
                                       ),
                                       borderRadius: BorderRadius.circular(
@@ -105,8 +99,29 @@ class _PokemonCard extends StatelessWidget {
                   )
                 ],
               ),
-              ElevatedButton(
-                  onPressed: () {}, child: const Text('Agregar a mi equipo')),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                ),
+                child: Obx(() {
+                  return pokemonController.myTeamList.length < 5
+                      ? ElevatedButton(
+                          onPressed: () {
+                            pokemonController.addToMyTeam(pokemon: pokemon);
+                          },
+                          child: const Text(
+                            'Agregar a mi equipo',
+                          ),
+                        )
+                      : const Text(
+                          'Tu equipo está completo',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                }),
+              ),
             ],
           ),
         ),
