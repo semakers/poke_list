@@ -14,7 +14,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Pokemon team',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blue,
+        ),
         useMaterial3: true,
       ),
       home: const HomePage(),

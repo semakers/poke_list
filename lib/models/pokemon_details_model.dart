@@ -29,18 +29,18 @@ class PokemonDetailsModel {
 }
 
 class Sprites {
-  final String backDefault;
+  final String frontDefault;
 
   Sprites({
-    required this.backDefault,
+    required this.frontDefault,
   });
 
   factory Sprites.fromJson(Map<String, dynamic> json) => Sprites(
-        backDefault: json["back_default"],
+        frontDefault: json["front_default"],
       );
 
   Map<String, dynamic> toJson() => {
-        "back_default": backDefault,
+        "front_default": frontDefault,
       };
 }
 

@@ -4,10 +4,10 @@ import 'package:poke_list/models/pokemon_list_fragment_model.dart';
 
 class PokemonServices {
   Future<PokemonListFragmentModel> getlistFragment({
-    String url = 'https://pokeapi.co/api/v2/pokemon?limit=10&offset=0',
+    String? url,
   }) async {
     final response = await PokemonConnection().client.get(
-          url,
+          url ?? 'https://pokeapi.co/api/v2/pokemon?limit=10&offset=0',
         );
     return PokemonListFragmentModel.fromJson(
       response.data,
